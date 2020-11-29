@@ -11,6 +11,8 @@ const Usuario = require('../models/usuario');
 
 app.get('/categoria', (req, res) => {
     Categoria.find({})
+        .sort('descripcion')
+        .populate('usuario', 'nombre email')
         .exec((err, categoria) => {
             if (err) {
                 return res.status(400).json({
@@ -65,7 +67,7 @@ app.post('/categoria', verificaToken, (req, res) => {
             return res.status(400).json({
                 ok: false,
                 err
-            })
+            });
         }
         res.json({
             ok: true,
