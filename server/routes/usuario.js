@@ -10,8 +10,6 @@ const app = express();
 
 app.get('/usuario', verificaToken, (req, res) => {
 
-
-
     let desde = req.query.desde || 0;
     desde = Number(desde);
 
@@ -72,7 +70,7 @@ app.put('/usuario/:id', [verificaToken, verificaAdmin_Role], function(req, res) 
     let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
 
     Usuario.findByIdAndUpdate(id, body, { new: true, runValidators: true }, (err, userDB) => {
-
+        console.log(body)
         if (err) {
             return res.status(400).json({
                 ok: false,
